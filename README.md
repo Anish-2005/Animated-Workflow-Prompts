@@ -14,6 +14,8 @@ Use these exact placeholders inside the prompts and swap them before generation:
 - `[ENGINEERING_DISCIPLINE]` such as Mechanical Engineering, Computer Science, Electronics, Civil Engineering
 - `[UNIVERSITY_NAME]`
 - `[TAGLINE]`
+- `[HERO_TEXT_SEQUENCE]` such as "Building systems|Designing interfaces|Shipping projects"
+- `[SECTION_TEXT_SEQUENCE]` such as "Robotics to UI|Circuits to code|Ideas to prototypes"
 - `[PORTFOLIO_VIBE]` such as futuristic lab, clean academic, colourful systems UI, bold tech showcase
 - `[PRIMARY_COLOR]`
 - `[SECONDARY_COLOR]`
@@ -51,6 +53,7 @@ Dependencies: Include `lenis` for smooth scrolling (via npm or CDN).
 3. Semantic Layout:
 - Build a standard, accessible HTML shell in `index.html`. Ensure semantic tags (`<header>`, `<main>`, `<section>`, `<footer>`) are correctly utilized.
 - Structure the portfolio for an engineering student: hero, about, skills/stack, project showcase, experience or achievements, and contact.
+- Leave room in the hero and major section headings for animated text transitions or phrase swaps driven by native browser APIs.
 ```
 
 ---
@@ -76,6 +79,7 @@ The overall visual language should feel like `[PORTFOLIO_VIBE]`, using `[PRIMARY
 - Design a high-impact hero section in HTML for `[STUDENT_NAME]`. Use whitespace, typography, and color as the primary visual drivers. Focus on perfect CSS Flexbox or Grid alignment.
 - Include placeholders in the content such as the student's name, discipline, tagline `[TAGLINE]`, and one or two concise lines about `[PROJECT_AREAS]`.
 - The hero should feel attractive and energetic, not flat monochrome.
+- Add a dedicated text-transition slot in the hero for `[HERO_TEXT_SEQUENCE]`. The sequence should be designed so multiple short phrases can swap elegantly in the same line or text block.
 
 4. CSS-Built 3D Background Scene:
 - Create a single fixed `.scene` container in the HTML that sits behind the content but above the base page background. Inside it, build 2-4 abstract DOM elements (for example: an orb, a slab, a ring) using gradients, borders, transparency, blur, and `transform-style: preserve-3d`.
@@ -104,16 +108,26 @@ The narrative should read like an engineering student portfolio journey: introdu
 - For staggered typography or lists, use CSS custom properties inline in the HTML (e.g., `style="--delay: 1"`) and apply `transition-delay: calc(var(--delay) * 100ms);` in the CSS.
 - Use staggering for engineering-specific content like skill lists, project metrics, coursework, achievements, or lab highlights.
 
-3. Glassmorphism Optimization:
+3. Native Text Transition System:
+- Build a lightweight text-transition system for headings or subheadings using vanilla JavaScript and CSS only. Do not use GSAP, splitting libraries, or heavy text animation packages.
+- Accept placeholder-driven sequences such as `[HERO_TEXT_SEQUENCE]` and `[SECTION_TEXT_SEQUENCE]`, where phrases are separated by a delimiter like `|`.
+- In HTML, create a semantic text wrapper for the animated phrase slot. In JavaScript, parse the phrases, then rotate or swap them one at a time.
+- Animate text changes with performant properties only: `opacity`, `transform`, `clip-path`, or a masked `translateY` stack effect. Avoid expensive per-letter DOM fragmentation unless the implementation remains very small and efficient.
+- The transition should feel polished, similar to premium landing pages where one phrase slides or fades into the next, rather than abruptly replacing text.
+- Keep the DOM shallow. Prefer swapping a whole phrase block or animating stacked lines instead of generating many nested spans.
+- Make the text transitions pause or simplify under `prefers-reduced-motion`.
+
+4. Glassmorphism Optimization:
 - If a floating header is needed, use highly optimized CSS: `backdrop-filter: blur(8px); background-color: rgba(255, 255, 255, 0.8);`. Avoid `saturate()` filters entirely.
 
-4. Section-Aware 3D Background Repositioning:
+5. Section-Aware 3D Background Repositioning:
 - Mark each major section with a semantic targeting hook such as `.scene-target` and a `data-scene` identifier (`hero`, `about`, `projects`, etc.).
 - In `main.js`, define a small object of pre-authored scene states for each section. Each state should contain transform values for the persistent 3D background elements (for example `tx`, `ty`, `tz`, `rx`, `ry`, `rz`, `scale`).
 - Measure the sections only on load and resize. Cache their top offsets. Do not query layout on every animation frame.
 - On scroll, compute which section range the user is in and smoothly interpolate between the current section's scene state and the next section's scene state.
 - Apply the interpolated values by writing CSS custom properties or inline styles to the fixed background elements only. The scene should appear to adjust itself to each section as the user scrolls, without adding lag.
 - Make the scene feel intentionally composed per section. For example: more open and bold in the hero, more structured in the skills section, more dynamic in the projects section, and calmer near contact.
+- Optionally synchronize section text transitions with section entry so the words and the 3D scene feel coordinated.
 - If `prefers-reduced-motion` is enabled, freeze the scene into a stable default state and skip the interpolation logic.
 ```
 
@@ -145,6 +159,7 @@ The micro-interactions should make the site feel premium and colorful without be
 4. Scroll-Safe Interaction Boundaries:
 - Ensure the magnetic CTA logic and the section-aware 3D background logic never fight each other. Keep CTA interactivity scoped to the buttons themselves, and keep the faux-3D scene writes isolated to the fixed background elements.
 - Use `requestAnimationFrame` only for Lenis and any already-running scroll-sync work. Do not spawn extra perpetual loops for hover effects.
+- Keep text-transition timers or section-triggered swaps isolated from pointer interactions. The text system should feel integrated with the site, not compete with hover behavior.
 ```
 
 ---
@@ -175,4 +190,5 @@ The completed site should clearly read as the portfolio of `[STUDENT_NAME]`, a `
 - Ensure the section-aware scene remains visually aligned on both desktop and mobile. Recalculate cached section positions on resize or orientation change only.
 - Avoid generic portfolio copy. Use concise, high-signal text blocks oriented around engineering projects, build quality, tools, results, and academic credibility.
 - Preserve the user palette placeholders in the implementation logic so future users can restyle the entire portfolio by changing the color variables only.
+- For text transitions, prefer phrase-level swaps, stacked line transitions, or masked vertical slides over large per-character DOM trees. Keep the implementation elegant and fast.
 ```
