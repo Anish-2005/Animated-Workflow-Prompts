@@ -1,123 +1,108 @@
-# THE DEFINITIVE MASTER PROMPTS: ULTRA-ELITE 3D CINEMATIC PORTFOLIO
+# THE DEFINITIVE MASTER PROMPTS: ULTRA-ELITE MINIMALIST HIGH-PERFORMANCE PORTFOLIO
 
-These 5 exhaustive, highly detailed prompts are designed to be fed sequentially to an advanced AI coding agent (e.g., Claude 3.5 Sonnet or GPT-4o). They are engineered to bypass generic, boilerplate web development and force the output of a top 1%, Awwwards-winning, mathematically precise WebGL portfolio.
+These 5 exhaustive, highly detailed prompts are designed to be fed sequentially to an advanced AI coding agent (e.g., Claude 3.5 Sonnet or GPT-4o). They are engineered to build a top 1%, minimal, and exceptionally smooth portfolio. This architecture prioritizes flawless 60fps performance on all devices (mobile and desktop) by avoiding heavy 3D rendering, laggy post-processing, and excessive DOM manipulation.
 
 Each prompt is provided in a copyable block below.
 
 ---
 
-## PROMPT 1: Foundational Architecture, Physics-Based Scroll Engine & State Synchronization
+## PROMPT 1: Foundational Architecture & Fluid Scroll Foundation
 
 ```text
-Initialize an enterprise-grade Next.js 16 App Router project utilizing TypeScript, Tailwind CSS v4, and the React Compiler. This is an elite-level, cinematic personal portfolio. We require an architecture capable of running a heavy WebGL scene alongside complex DOM animations at a locked 60/120fps.
+Initialize an enterprise-grade Next.js 16 App Router project utilizing TypeScript and Tailwind CSS v4. This is an elite-level, minimalist personal portfolio. We require an architecture capable of running smooth DOM animations effortlessly at a locked 60fps on both mobile and desktop.
 
-Dependencies: Install `three`, `@react-three/fiber`, `@react-three/drei`, `@react-three/postprocessing`, `gsap`, `lenis`, `framer-motion`, and `simplex-noise`.
+Dependencies: Install `framer-motion`, `lenis`, `clsx`, and `tailwind-merge`.
 
-1. Global Scroll Physics Engine (Lenis):
-- Instantiate Lenis at the root layout. You must not use default settings. Apply a custom easing function: `ease: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t))` and set `lerp: 0.08` for heavy, buttery friction.
-- CRITICAL: Create a high-performance proxy state (using `valtio` or a vanilla JS closure/singleton) to sync Lenis's `progress` (0 to 1) and `velocity` metrics. This proxy must bypass React's standard state (`useState`) entirely. GSAP's `ScrollTrigger` and React Three Fiber's `useFrame` will poll this proxy 120 times a second; using React state here will destroy performance via re-renders.
+1. Global Scroll Foundation (Lenis):
+- Instantiate Lenis at the root layout for smooth scrolling. Use standard, lightweight settings: `lerp: 0.1` and `smoothWheel: true`. Avoid tying heavy state updates to the scroll event. 
+- Use native document flow. Do not use artificial heights, absolute positioning traps, or fixed layout hacks.
 
-2. Fluid Typography & Design System:
-- Implement CSS `clamp()` functions for absolutely all typographic elements to ensure sub-pixel fluid scaling (e.g., `font-size: clamp(2rem, 5vw + 1rem, 8rem)`). Avoid static Tailwind text utilities (like `text-4xl`) for primary headings.
-- Enforce an elite 'Deep Space' palette. Set CSS variables for `--port-bg: #020203` (absolute dark), `--port-text: #E2E2E5` (off-white, reducing eye strain), and an intense chromatic accent like `--port-accent: #8B5CF6` (Neon Amethyst) or `#14B8A6` (Cyber Teal).
+2. Minimalist Design System & Fluid Typography:
+- Implement CSS `clamp()` functions for heading typography to ensure seamless responsive scaling without media query breakpoints (e.g., `font-size: clamp(2rem, 5vw + 1rem, 5rem)`).
+- Enforce an ultra-clean, high-contrast palette. Set CSS variables for `--port-bg: #FAFAFA` (soft white), `--port-text: #171717` (deep neutral), and a subtle accent like `--port-accent: #525252`. Add a dark mode counterpart (`#0A0A0A` bg, `#EDEDED` text).
 
-3. Cinematic Viewport Shell Setup:
-- Build a `CinematicShell` layout component. The `<main>` tag must not scroll normally. Give it a massive artificial height, e.g., `height: 1500vh`. 
-- Wrap the actual visual content in a `position: fixed`, `inset: 0`, and `overflow: hidden` container. This effectively traps the user's viewport in a fixed cinematic lens, mapping the 1500vh scroll distance entirely to the 3D camera timeline and GSAP overlays.
+3. Semantic Layout:
+- Build a standard, accessible HTML shell. Ensure semantic tags (`<header>`, `<main>`, `<section>`, `<footer>`) are used.
 ```
 
 ---
 
-## PROMPT 2: The Neural Core — Custom GLSL Shaders & React Three Fiber
+## PROMPT 2: The Visual Core — Performant Gradients & CSS Art
 
 ```text
-Construct the `Fluid3DScene` component using React Three Fiber. This acts as the visual masterpiece of the portfolio, rendered behind all HTML.
+Construct the visual background for the portfolio. Do not use heavy WebGL, Three.js, or Canvas particle swarms, as these destroy mobile battery life and laptop performance.
 
-1. The Monolith (Advanced Physical Transmission):
-- Create a central geometric monolith (a mathematically deformed Icosahedron or complex Torus Knot). 
-- Apply an ultra-advanced `MeshPhysicalMaterial`. The monolith must look like a solid piece of flint glass refracting the universe behind it. Use parameters: `transmission: 1.2`, `ior: 1.6`, `thickness: 2.5`, `roughness: 0.15`, `chromaticAberration: 0.08`, `dispersion: 2.0`, and `clearcoat: 1.0`.
+1. Subtle CSS Ambient Background:
+- Create a lightweight background component using a performant CSS `radial-gradient` or a subtle animated mesh gradient. 
+- Animate the `background-position` slowly using CSS keyframes, completely avoiding JavaScript for the animation tick.
+- Keep the opacity extremely low (e.g., 5-10%) so it acts as a textural element rather than a focal point.
 
-2. GPGPU / FBO Particle Swarm:
-- Do not use standard Three.js particle systems. Implement a Frame Buffer Object (FBO) simulation utilizing custom GLSL shaders to drive 10,000 micro-particles.
-- Vertex Shader: Use `simplex-noise` to calculate 3D curl noise vectors. The particles must behave like fluid intelligence, constantly swirling and reacting to the monolith's gravitational center.
-- Fragment Shader: Make the particles glow with the `--port-accent` color, fading at the edges. Use `@react-three/drei`'s `<PointMaterial>` or custom `RawShaderMaterial` for performant rendering.
+2. SVG Grain Overlay (Optional):
+- Implement a static SVG noise/grain overlay. Set its `opacity` to `0.03` and `pointer-events: none`.
+- Do not animate the noise with JS. If animation is required, use a 2-step CSS `transform: translate()` keyframe to jitter the SVG position slightly, ensuring negligible GPU load.
 
-3. Scroll-Velocity Camera Rig:
-- Build a `CameraRig` component. Inside `useFrame`, read the `globalScrollProxy` (both `progress` and `velocity`).
-- Interpolate the camera's `z` position and `fov` using `MathUtils.damp`. 
-- Velocity Warp: When the `velocity` spikes (fast scroll), dynamically pull the FOV backwards and stretch the post-processing bloom to create a 'warp-speed' effect. When velocity hits 0, ease the FOV back to its resting state. Tie the user's mouse coordinates to a subtle, delayed parallax pan to keep the scene breathing.
-
-4. Post-Processing & Optimization:
-- Wrap the scene in an `EffectComposer`. Apply a high-pass `Bloom` (luminance threshold 0.6, intensity 2.5), `DepthOfField` (focus distance strictly mapped to the monolith's surface to blur background particles), and a heavy cinematic `Vignette`.
-- CRITICAL PERF: Wrap the entire `<Canvas>` in `<Bvh>` (Bounding Volume Hierarchy). Disable `antialias` on the WebGL renderer since we are using heavy post-processing, and ensure `dpr={[1, 2]}` is capped to prevent mobile GPU throttling.
+3. Clean Hero Section:
+- Design a high-impact, minimalist hero section using whitespace and typography as the primary visual drivers. Avoid full-screen visual blockers. Focus on perfect spacing and alignment.
 ```
 
 ---
 
-## PROMPT 3: Spatial Narrative Overlay & Z-Axis Staggering via GSAP
+## PROMPT 3: Spatial Narrative & Lightweight Scroll Reveal
 
 ```text
-Develop the `NarrativeOverlay` component. This is the HTML layer that tells the story. It must sit strictly above the 3D canvas (`z-10`), using `pointer-events-none` on the container so users can still interact with the 3D scene.
+Develop the content layer using `framer-motion`. The goal is to create a spatial narrative that feels alive without hijacking the user's browser or creating scroll lag.
 
-1. Master GSAP ScrollTrigger Architecture:
-- Implement a single GSAP Master Timeline with `scrub: 1.2` mapped to the `1500vh` container. Use `gsap.matchMedia()` to handle breakpoints (desktop vs. mobile scaling logic).
+1. Viewport-Based Reveals (`whileInView`):
+- Instead of complex GSAP timelines bound to scroll progress, use Framer Motion's `whileInView` prop with `viewport={{ once: true, margin: "-100px" }}`.
+- Animate elements sliding up gently (`y: 20` to `y: 0`) and fading in (`opacity: 0` to `opacity: 1`). Use natural spring transitions (`type: "spring", stiffness: 100, damping: 20`).
 
-2. The Void Entrance (Hero Sequence):
-- Utilize `framer-motion` for the initial component mount. The hero typography (e.g., 'Creative Engineer') must materialize from absolute darkness. Animate `filter` from `blur(40px)` to `0px`, and `scale` from `1.5` to `1.0`. Use a heavy custom cubic-bezier curve `[0.16, 1, 0.3, 1]` spanning 3 full seconds.
+2. Staggered Typography:
+- For the primary hero text, split the phrase into words or lines (not individual letters, to save DOM nodes and computation).
+- Use `framer-motion` variants with `staggerChildren: 0.1` to cascade the text smoothly into view upon page load.
 
-3. 3D Typographic Flight (The Manifesto):
-- Render a manifesto sequence (e.g., 'I don't write code. I engineer realities.'). Wrap each word in a span. 
-- As the user scrolls, use GSAP to animate each individual word flying straight past the camera. Animate `translateZ` (from `-500px` deep in the background to `1000px` flying past the user's face). Combine this with `opacity` arcs (0 -> 1 -> 0) and slight `rotationX`. Apply `opacity-0` in Tailwind to all words initially to prevent any Flash of Unstyled Content (FOUC).
-
-4. Glassmorphic HUD & Synced Spatial Carousel:
-- Tech Stack HUD: Reveal floating technical panels demonstrating the tech stack. Use intense glassmorphism: `backdrop-filter: blur(24px) saturate(150%)`, `border: 1px solid rgba(255,255,255,0.05)`, and a subtle internal box-shadow. Map their `y` and `rotateY` transforms to the GSAP scroll scrub so they tilt dynamically in 3D space.
-- Horizontal Projects Pan: At exactly 75% scroll progress, hijack the vertical scroll completely. Trigger a horizontal GSAP pan of massive case-study cards. Set `.pointer-events-auto` on these cards so they are clickable. Crucially, sync this horizontal HTML pan precisely with a horizontal camera pan in the WebGL scene, unifying the two layers.
+3. Glassmorphism Optimization:
+- Avoid heavy `backdrop-filter` where possible. If glassmorphism is needed for navigation or floating headers, use a highly optimized version: `backdrop-filter: blur(8px)` combined with a semi-transparent solid background (`rgba(255,255,255,0.8)`). Avoid `saturate()` or `contrast()` filters entirely.
 ```
 
 ---
 
-## PROMPT 4: Physics-Based Micro-Interactions & Liquid UI
+## PROMPT 4: Native UX Micro-Interactions
 
 ```text
-An elite portfolio is defined entirely by its micro-interactions. You must implement the following physics-driven UX components to bridge the gap between static web and interactive application:
+Focus on native, lightweight micro-interactions that enhance the feel of the portfolio without running continuous requestAnimationFrame loops.
 
-1. The Fluid Velocity Cursor:
-- Suppress the native OS cursor (`cursor-none` on the body). Build a custom `Framer Motion` cursor using spring physics (`stiffness: 200, damping: 20`). 
-- It must feature a 4px solid central dot and a massive 400px radial glow layer set to `mix-blend-screen`. 
-- Velocity Distortion: Read the mouse velocity vector. When moving rapidly, the radial glow must dynamically stretch (`scaleX`) and skew along the exact angle of movement, returning to a perfect circle when resting.
+1. Native Cursor Excellence:
+- Retain the native OS cursor. Do not implement custom JS cursors, as they cause significant latency on mobile and low-end devices.
+- Instead, rely on rich CSS `:hover` states. Add subtle `transform: scale(1.02)` and `color` transitions to interactive elements. Use `cursor-pointer`.
 
-2. Sub-Pixel Magnetic Parallax Buttons:
-- Create an advanced `MagneticButton` wrapper. When the mouse approaches, calculate the bounding client rect and the exact distance to the button's center.
-- Use GSAP to pull the button container towards the mouse (clamped to a max of 20px). 
-- The Magic Touch: Pull the *text label inside* the button even further (clamped to 40px). This offset creates a stunning 3D parallax depth effect inside a 2D HTML button. Apply `scale: 0.95` smoothly on the `mousedown` event.
+2. Performant Magnetic CTAs (Optional/Light):
+- If magnetic buttons are desired, restrict them to a few primary Calls to Action.
+- Use a lightweight React `onMouseMove` handler on the button itself (not a global listener). Calculate the offset and apply a gentle `x` and `y` transform using Framer Motion's `useMotionValue` and `useSpring`. Reset to 0 on `onMouseLeave`. Do not offset inner text separately to avoid overdraw.
 
-3. Velocity-Driven Scroll Momentum Indicator:
-- Discard generic vertical progress bars. Create a fixed geometric HUD element (e.g., a technical wireframe dial or radar) in the bottom right corner. 
-- Use an SVG `<circle>`. Map its `stroke-dashoffset` precisely to the Lenis `progress` (0 to 1). 
-- Velocity Rotation: Rotate the entire SVG housing based on the immediate Lenis `velocity` metric. The faster the user scrolls, the faster the targeting dial spins, creating an immediate tactile connection between the user's mouse wheel and the UI.
+3. CSS-Driven Hover Cards:
+- For project showcases, build interactive cards using pure CSS.
+- On hover, reveal project details using `opacity` and a slight `transform: translateY(-5px)`. Use `transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1)`.
 ```
 
 ---
 
-## PROMPT 5: Brutalist Typography, Generative Branding & Master Polish
+## PROMPT 5: Typography, Branding & Performance Audit
 
 ```text
-Finalize the technical aesthetic. Focus on typographic perfection, generative SVG generation, and a ruthless performance audit.
+Finalize the minimal aesthetic with precise typography, crisp branding, and a flawless performance score.
 
-1. Elite Typographic Stack (next/font/google):
-- Import strictly variable fonts. Do not rely on system fallbacks.
-- Display Layer: Use Syncopate or Oswald for massive, brutalist headers. Force uppercase, tight tracking (`letter-spacing: -0.05em`), and huge optical sizes.
-- Body Layer: Use Inter or Geist. Optimize for extreme legibility. Keep paragraph widths sparse and enforce a precise line-height of `1.6`.
-- Technical/HUD Layer: Use JetBrains Mono or Space Mono (For all technical data, scroll metrics, and micro-labels. Force uppercase with wide tracking `letter-spacing: 0.2em`).
+1. Optimized Typographic Stack (`next/font/google`):
+- Use `next/font/google` to load variable fonts efficiently. 
+- Primary Headings: 'Inter' or 'Geist', tracked tight (`letter-spacing: -0.02em`) with a heavy weight.
+- Body Copy: The same font, regular weight, high legibility (`line-height: 1.7`).
+- Monospace Accents: 'JetBrains Mono' for small technical details or labels, styled with uppercase and wide tracking.
 
-2. Mathematical Generative Favicon (Next.js ImageResponse):
-- Do not use a static PNG or ICO file. Utilize Next.js `app/icon.tsx` (`ImageResponse`) to generate a dynamic, mathematically perfect 2D vector logo on the fly.
-- Construct a sharp, highly abstract geometric monogram representing the developer's initials (e.g., interlocking sharp triangles, or a monolithic architectural 'K').
-- Use raw SVG `<path>` data. Apply an intensely glowing linear-gradient `stroke` (thickness `12px`) matching the `--port-accent` color, set against a deep `#020203` background. Add tiny geometric glowing circles at the apex vertices to sell the technical aesthetic.
+2. Clean SVG Branding:
+- Create a minimal SVG component for the logo/favicon. 
+- Use basic geometric shapes (e.g., a simple grid, a circle intersecting a square, or minimal initials). Ensure it renders perfectly at 16x16px and scales beautifully without heavy gradients or drop shadows.
 
-3. Performance & Render Audit:
-- Guarantee 60fps on mobile and 120fps on capable desktop monitors.
-- Apply `will-change: transform, opacity` via CSS to all elements targeted by GSAP to force hardware acceleration.
-- Ensure strict React Three Fiber memory management: use `useMemo` for all complex geometries, shader materials, and math vectors to prevent garbage collection stuttering during scroll.
-- Verify the exact Z-index stack: 3D Canvas (`z-0`) -> Grain/Noise Overlay (`z-10`) -> Narrative Overlay (`z-20`) -> Interactive Project Carousel (`z-30`) -> Custom Cursor (`z-50`).
+3. Ruthless Performance Rules:
+- Guarantee absolutely zero lag during fast scrolling.
+- Only apply `will-change: transform` or `will-change: opacity` to elements that are actively animating, and remove it immediately after the animation completes. Do not apply it globally.
+- Audit the DOM tree depth. Keep it shallow. Avoid unnecessary wrapper `<div>`s to ensure fast rendering and rapid style recalculation by the browser.
 ```
